@@ -13,6 +13,7 @@ XData setup
     <Configuration>
       <Database Name="${Namespace}" Dir="${mgrdir}${database}/data" Create="yes" Resource="%DB_${Namespace}"/>
     </Configuration>
+    <CSPApplication Url="/csp/irisapp" Directory="${cspdir}irisapp"  ServeFiles="1" Recurse="1" MatchRoles=":%DB_${Namespace}" AuthenticationMethods="32"/>
   </Namespace>
 </Manifest>
 }

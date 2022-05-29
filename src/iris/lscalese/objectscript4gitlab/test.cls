@@ -1,6 +1,35 @@
 Class iris.lscalese.objectscript4gitlab.test Extends %CSP.Page
 {
 
+ClassMethod OnPreHTTP() As %Boolean
+{
+    Set %session.AppTimeout = 3600
+    If $g(%request.Data("action",1))="save" {
+
+        Set fName = "/home/irisowner/rouge/spec/visual/samples/objectscript"
+        
+        If '##class(%File).Exists(fName_".cbk") {
+            Do ##class(%File).CopyFile(fName,fName_".cbk",1)
+        }
+
+        Set code = %request.Data("code",1), ^zcode = code
+        Do ##class(%File).Delete(fName)
+
+        Set stream=##class(%Stream.FileCharacter).%New()
+        Set sc=stream.LinkToFile(fName)
+        Do stream.Write(code)
+        Do stream.%Save()
+
+    } ElseIf $g(%request.Data("action",1))="reset" {
+        Set fName = "/home/irisowner/rouge/spec/visual/samples/objectscript"
+
+        If ##class(%File).Exists(fName_".cbk") {
+            Do ##class(%File).CopyFile(fName_".cbk",fName,1)
+        }
+    }
+    Quit 1
+}
+
 ClassMethod OnPage() As %Status
 {
     &html<
@@ -29,7 +58,8 @@ ClassMethod OnPage() As %Status
             <br/>
             <div class="container">
 
-                <button type="button" class="btn btn-primary" onclick="filterJSON();">Submit</button>
+                <button type="button" class="btn btn-primary" onclick="SetCOSCode();">Submit</button>
+                <button type="button" class="btn btn-primary" onclick="Reset();">Reset</button>
 
                 <div class="form-group">
                     &nbsp;<br/>
@@ -58,26 +88,40 @@ ClassMethod writeJS() As %Status
     Write "<script type=""text/javascript"">"
     &js<
 
-        function filterJSON() {
+        function SetCOSCode() {
             jQuery.ajax({
-                type: "GET",
-                url: "/csp/jsonfilterrest/demoresponse",
+                type: "POST",
+                url: "./iris.lscalese.objectscript4gitlab.test.cls",
                 async: true,
-                dataType: 'json',
-                data: {"jsflt":jQuery("#filterString").val(),"jsfltsc":jQuery("#searchCriteria").val()},
+                data: {"action":"save","code":jQuery("#objectscript-txt").val()},
                 success: function (data){
-                    var json = JSON.stringify(data,null,2)
-                    jQuery("#jsonResponse").val(json);
+                    
+                    window.open('http://localhost:9592/objectscript');
                 },
                 error: function(jqXHR, textStatus, errorThrown ) {
-                    if (jqXHR.status==401) {
-                        basicDefaultAuth = false; // force browser prompt for next query
-                    }
+                    
                 },
                 beforeSend: function (xhr) {
-                    if (basicDefaultAuth) {
-                        xhr.setRequestHeader ("Authorization", "Basic " + btoa("_system:SYS"));
-                    }
+                    
+                }
+            });
+        }
+
+        function Reset() {
+            jQuery.ajax({
+                type: "POST",
+                url: "./iris.lscalese.objectscript4gitlab.test.cls",
+                async: true,
+                data: {"action":"reset"},
+                success: function (data){
+                    
+                    window.open('http://localhost:9592/objectscript');
+                },
+                error: function(jqXHR, textStatus, errorThrown ) {
+                    
+                },
+                beforeSend: function (xhr) {
+                    
                 }
             });
         }

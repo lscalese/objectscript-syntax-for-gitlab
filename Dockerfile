@@ -28,4 +28,3 @@ RUN --mount=type=bind,src=.,dst=. \
     cd rouge && \
     bundle config set path 'vendor' && \
     bundle install
-
