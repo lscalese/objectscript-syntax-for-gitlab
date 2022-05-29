@@ -8,8 +8,24 @@ WORKDIR /home/irisowner/irisbuild
 
 ARG TESTS=0
 
+ADD startRackup.sh /home/irisowner/startRackup.sh
+
+USER root
+
+RUN apt-get update && \
+    apt-get install -y ruby-full && \
+    gem install bundler && \
+    chmod +x /home/irisowner/startRackup.sh
+
+USER irisowner
+
 RUN --mount=type=bind,src=.,dst=. \
     iris start IRIS && \
 	iris session IRIS < iris.script && \
-    ([ $TESTS -eq 0 ] || iris session iris "##class(%ZPM.PackageManager).Shell(\"test $MODULE -v -only\",1,1)") && \
-    iris stop IRIS quietly
+    iris stop IRIS quietly && \
+    cd .. && \
+    git clone --branch objectscript https://github.com/lscalese/rouge.git && \
+    cd rouge && \
+    bundle config set path 'vendor' && \
+    bundle install
+
