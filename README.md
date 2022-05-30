@@ -19,7 +19,7 @@ Open the terminal in this directory and call the command to build and run InterS
 
 
 ```bash
-docker pull ghcr.io/lscalese/objectscript-syntax-for-gitlab:latest
+DOCKER_BUILDKIT=1 docker-compose build --no-cache
 docker-compose up -d
 ```
 
@@ -31,6 +31,6 @@ Open [http://localhost:9592/objectscript](http://localhost:9592/objectscript) to
 ![](https://github.com/lscalese/objectscript-syntax-for-gitlab/blob/master/screen-1.png?raw=true)
 
 You can put your own objectscript class by a simple copy/paste using this page : [http://localhost:9692/csp/irisapp/lscalese.objectscript4gitlab.test.cls](http://localhost:9692/csp/irisapp/lscalese.objectscript4gitlab.test.cls).  Click submit and the highlighted code will be open in a new page.  
-Click reset to restore the default test page.  The login\password of the web application is the default _system \ SYS credential.
+Click reset to restore the default test page.  The login\password of the web application is the default _system \ SYS credentials.
 
 ![](https://github.com/lscalese/objectscript-syntax-for-gitlab/blob/master/screen-2.png?raw=true)
