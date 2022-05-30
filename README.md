@@ -7,7 +7,7 @@ This a repository to test easily the current status of [rouge project fork](http
 It allows to have Ruby environment on docker ready for testing.  
 
 
-Community article soon...  
+For more information the community article is [available here](https://community.intersystems.com/post/objectscript-syntax-gitlab).
 
 
 ## Installation
