@@ -1,4 +1,4 @@
-Class iris.lscalese.objectscript4gitlab.test Extends %CSP.Page
+Class lscalese.objectscript4gitlab.test Extends %CSP.Page
 {
 
 ClassMethod OnPreHTTP() As %Boolean
@@ -91,7 +91,7 @@ ClassMethod writeJS() As %Status
         function SetCOSCode() {
             jQuery.ajax({
                 type: "POST",
-                url: "./iris.lscalese.objectscript4gitlab.test.cls",
+                url: "./lscalese.objectscript4gitlab.test.cls",
                 async: true,
                 data: {"action":"save","code":jQuery("#objectscript-txt").val()},
                 success: function (data){
@@ -110,7 +110,7 @@ ClassMethod writeJS() As %Status
         function Reset() {
             jQuery.ajax({
                 type: "POST",
-                url: "./iris.lscalese.objectscript4gitlab.test.cls",
+                url: "./lscalese.objectscript4gitlab.test.cls",
                 async: true,
                 data: {"action":"reset"},
                 success: function (data){
