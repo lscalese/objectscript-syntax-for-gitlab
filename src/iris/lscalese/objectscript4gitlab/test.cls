@@ -3,7 +3,7 @@ Class lscalese.objectscript4gitlab.test Extends %CSP.Page
 
 ClassMethod OnPreHTTP() As %Boolean
 {
-    Set %session.AppTimeout = 3600
+    Set %session.AppTimeout = 3600*24
     If $g(%request.Data("action",1))="save" {
 
         Set fName = "/home/irisowner/rouge/spec/visual/samples/objectscript"
