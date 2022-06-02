@@ -22,7 +22,7 @@ Open the terminal in this directory and call the command to build and run InterS
 
 
 ```bash
-DOCKER_BUILDKIT=1 docker-compose build --no-cache
+docker pull ghcr.io/lscalese/objectscript-syntax-for-gitlab:latest
 docker-compose up -d
 ```
 

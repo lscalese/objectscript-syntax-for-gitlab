@@ -1,9 +1,10 @@
 version: '3.6'
 services:
   iris:
-    build: 
-      context: .
-      dockerfile: Dockerfile
+    image: ghcr.io/lscalese/objectscript-syntax-for-gitlab:latest
+    #build: 
+    #  context: .
+    #  dockerfile: Dockerfile
     #restart: always
     command: ["--check-caps", "false", "-a", "sh /home/irisowner/startRackup.sh"]
     ports: 
